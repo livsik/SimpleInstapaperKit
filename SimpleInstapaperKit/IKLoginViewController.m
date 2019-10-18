@@ -34,7 +34,7 @@
 #import "IKRequest.h"
 
 
-@interface IKLoginViewController () <UIAlertViewDelegate>
+@interface IKLoginViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *usernameCell;
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
@@ -232,11 +232,15 @@
 				reason = NSLocalizedString(@"The service encountered an error. Please try again later.", nil);
 			}
 			
-			[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Failed", nil)
-									   message:reason
-									  delegate:self
-							 cancelButtonTitle:NSLocalizedString(@"OK", nil)
-							 otherButtonTitles:nil] show];
+
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Login Failed", nil)
+                                                                                     message:reason
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+            
+            [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"OK", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [self.passwordField becomeFirstResponder];
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
 			
 			[self _setLoading:NO];
 		}
@@ -270,11 +274,6 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
 	[self.loadingField becomeFirstResponder];
-}
-
-- (void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-	[self.passwordField becomeFirstResponder];
 }
 
 @end
