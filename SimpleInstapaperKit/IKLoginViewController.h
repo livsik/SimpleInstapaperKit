@@ -32,6 +32,15 @@
 
 @interface IKLoginViewController : UITableViewController <UITextFieldDelegate>
 
+@property (nonatomic, strong) UIColor *backgroundColor;
+
+@property (nonatomic, strong) UIColor *cellBackgroundColor;
+@property (nonatomic, strong) UIColor *cellBackgroundColorSelected;
+
+@property (nonatomic, strong) UIColor *primaryTextColor;
+@property (nonatomic, strong) UIColor *secondaryTextColor;
+@property (nonatomic, strong) UIColor *linkTextColor;
+
 - (id)initWithCompletionHandler:(void(^)(BOOL loggedIn))completion;
 
 @end
