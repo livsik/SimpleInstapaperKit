@@ -151,11 +151,13 @@
 	self.usernameField.text = [IKRequest username];
     self.usernameField.textColor = self.primaryTextColor;
     self.usernameField.backgroundColor = UIColor.clearColor;
+    self.usernameField.keyboardAppearance = self.keyboardAppearance;
     self.usernameTitle.textColor = self.secondaryTextColor;
     
 	self.passwordField.text = [IKRequest password];
     self.passwordField.textColor = self.primaryTextColor;
     self.passwordField.backgroundColor = UIColor.clearColor;
+    self.passwordField.keyboardAppearance = self.keyboardAppearance;
     self.passwordTitle.textColor = self.secondaryTextColor;
 	
     [self.usernameField becomeFirstResponder];

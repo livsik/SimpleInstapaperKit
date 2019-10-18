@@ -41,6 +41,8 @@
 @property (nonatomic, strong) UIColor *secondaryTextColor;
 @property (nonatomic, strong) UIColor *linkTextColor;
 
+@property (nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
+
 - (id)initWithCompletionHandler:(void(^)(BOOL loggedIn))completion;
 
 @end
