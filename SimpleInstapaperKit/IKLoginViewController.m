@@ -37,8 +37,10 @@
 @interface IKLoginViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *usernameCell;
+@property (strong, nonatomic) IBOutlet UILabel *usernameTitle;
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITableViewCell *passwordCell;
+@property (strong, nonatomic) IBOutlet UILabel *passwordTitle;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) IBOutlet UITableViewCell *loadingCell;
 @property (strong, nonatomic) IBOutlet UITextField *loadingField;
@@ -149,10 +151,12 @@
 	self.usernameField.text = [IKRequest username];
     self.usernameField.textColor = self.primaryTextColor;
     self.usernameField.backgroundColor = UIColor.clearColor;
+    self.usernameTitle.textColor = self.secondaryTextColor;
     
 	self.passwordField.text = [IKRequest password];
     self.passwordField.textColor = self.primaryTextColor;
     self.passwordField.backgroundColor = UIColor.clearColor;
+    self.passwordTitle.textColor = self.secondaryTextColor;
 	
     [self.usernameField becomeFirstResponder];
 }
@@ -188,9 +192,6 @@
 		cell = self.passwordCell;
 	}
 	
-    cell.textLabel.textColor = self.primaryTextColor;
-    
-    cell.detailTextLabel.textColor = self.secondaryTextColor;
     cell.backgroundColor = self.cellBackgroundColor;
     cell.selectedBackgroundView.backgroundColor = self.cellBackgroundColorSelected;
     

@@ -15,8 +15,10 @@
                 <outlet property="loadingField" destination="81" id="89"/>
                 <outlet property="passwordCell" destination="48" id="59"/>
                 <outlet property="passwordField" destination="50" id="67"/>
+                <outlet property="passwordTitle" destination="49" id="6bp-Qw-46e"/>
                 <outlet property="usernameCell" destination="8" id="40"/>
                 <outlet property="usernameField" destination="12" id="66"/>
+                <outlet property="usernameTitle" destination="9" id="YzO-YI-5fE"/>
                 <outlet property="view" destination="4" id="5"/>
             </connections>
         </placeholder>
