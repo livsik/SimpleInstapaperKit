@@ -44,7 +44,7 @@
                             <constraint firstAttribute="height" constant="15" id="47"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" name="linkColor" catalog="System" colorSpace="catalog"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="200" horizontalCompressionResistancePriority="600" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="or email address" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="12">
@@ -83,7 +83,7 @@
                             <constraint firstAttribute="height" constant="15" id="58"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" name="linkColor" catalog="System" colorSpace="catalog"/>
                         <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </label>
                     <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="200" horizontalCompressionResistancePriority="600" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="if you have one" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="50">
