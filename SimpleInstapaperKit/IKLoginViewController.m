@@ -37,8 +37,10 @@
 @interface IKLoginViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *usernameCell;
+@property (strong, nonatomic) IBOutlet UILabel *usernameTitle;
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 @property (strong, nonatomic) IBOutlet UITableViewCell *passwordCell;
+@property (strong, nonatomic) IBOutlet UILabel *passwordTitle;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 @property (strong, nonatomic) IBOutlet UITableViewCell *loadingCell;
 @property (strong, nonatomic) IBOutlet UITextField *loadingField;
@@ -95,6 +97,7 @@
 	self = [self initWithNibName:nil bundle:nil];
 	if (self != nil) {
 		_completionHandler = [completion copy];
+        [self setupColors];
 	}
 	
 	return self;
@@ -105,9 +108,21 @@
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 	if (self != nil) {
 		self.title = NSLocalizedString(@"Instapaper", nil);
+        [self setupColors];
 	}
 	
 	return self;
+}
+
+- (void)setupColors {
+    self.backgroundColor = [UIColor colorWithRed:roundf(243.f / 255.f) green:roundf(245.f / 255.f) blue:roundf(247.f / 255.f) alpha:1.f];
+    
+    self.cellBackgroundColor = [UIColor colorWithRed:roundf(243.f / 255.f) green:roundf(245.f / 255.f) blue:roundf(247.f / 255.f) alpha:1.f];
+    self.cellBackgroundColorSelected = [UIColor colorWithRed:roundf(214.f / 255.f) green:roundf(219.f / 255.f) blue:roundf(223.f / 255.f) alpha:1.f];
+    
+    self.primaryTextColor = [UIColor colorWithRed:roundf(0.f / 255.f) green:roundf(0.f / 255.f) blue:roundf(0.f / 255.f) alpha:1.f];
+    self.secondaryTextColor = [UIColor colorWithRed:roundf(141.f / 255.f) green:roundf(149.f / 255.f) blue:roundf(158.f / 255.f) alpha:1.f];
+    self.linkTextColor = [UIColor colorWithRed:roundf(0.f / 255.f) green:roundf(122.f / 255.f) blue:roundf(255.f / 255.f) alpha:1.f];
 }
 
 - (void)viewDidLoad
@@ -115,6 +130,8 @@
     [super viewDidLoad];
 
     [self.view addSubview:self.loadingField];
+    
+    self.tableView.backgroundColor = self.backgroundColor;
 }
 
 - (void)didReceiveMemoryWarning
@@ -127,11 +144,23 @@
 {
 	[super viewWillAppear:animated];
 	
-	self.navigationController.navigationBar.tintColor = [UIColor darkGrayColor];
+	self.navigationController.navigationBar.tintColor = self.primaryTextColor;
+    
+    self.tableView.backgroundColor = self.backgroundColor;
 	
 	self.usernameField.text = [IKRequest username];
+    self.usernameField.textColor = self.primaryTextColor;
+    self.usernameField.backgroundColor = UIColor.clearColor;
+    self.usernameField.keyboardAppearance = self.keyboardAppearance;
+    self.usernameTitle.textColor = self.secondaryTextColor;
+    
 	self.passwordField.text = [IKRequest password];
-	[self.usernameField becomeFirstResponder];
+    self.passwordField.textColor = self.primaryTextColor;
+    self.passwordField.backgroundColor = UIColor.clearColor;
+    self.passwordField.keyboardAppearance = self.keyboardAppearance;
+    self.passwordTitle.textColor = self.secondaryTextColor;
+	
+    [self.usernameField becomeFirstResponder];
 }
 
 
@@ -153,17 +182,22 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UITableViewCell *cell;
+    
 	if (_loading) {
-		return self.loadingCell;
+		cell = self.loadingCell;
 	}
 	
 	if (indexPath.row == 0) {
-		return self.usernameCell;
+		cell = self.usernameCell;
 	} else if (indexPath.row == 1) {
-		return self.passwordCell;
+		cell = self.passwordCell;
 	}
 	
-	return nil;
+    cell.backgroundColor = self.cellBackgroundColor;
+    cell.selectedBackgroundView.backgroundColor = self.cellBackgroundColorSelected;
+    
+	return cell;
 }
 
 
