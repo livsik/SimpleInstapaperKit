@@ -133,6 +133,7 @@
     self.primaryTextColor = [UIColor colorWithRed:roundf(0.f / 255.f) green:roundf(0.f / 255.f) blue:roundf(0.f / 255.f) alpha:1.f];
     self.secondaryTextColor = [UIColor colorWithRed:roundf(141.f / 255.f) green:roundf(149.f / 255.f) blue:roundf(158.f / 255.f) alpha:1.f];
     self.linkTextColor = [UIColor colorWithRed:roundf(0.f / 255.f) green:roundf(122.f / 255.f) blue:roundf(255.f / 255.f) alpha:1.f];
+    self.placeholderTextColor = UIColor.lightGrayColor;
 }
 
 - (void)viewDidLoad
@@ -158,17 +159,29 @@
     
     self.tableView.backgroundColor = self.backgroundColor;
 	
-	self.usernameField.text = [IKRequest username];
+    NSDictionary *placeholderAttributes = @{ NSForegroundColorAttributeName: self.placeholderTextColor };
+    
+    NSString *usernameFieldPlaceholder = self.usernameField.placeholder ?: @"or email address";
+    NSAttributedString *usernameFieldAttributedPlaceholder = [[NSAttributedString alloc] initWithString:usernameFieldPlaceholder attributes:placeholderAttributes];
+    
+    NSString *passwordFieldPlaceholder = self.passwordField.placeholder ?: @"if you have any";
+    NSAttributedString *passwordFieldAttributedPlaceholder = [[NSAttributedString alloc] initWithString:passwordFieldPlaceholder attributes:placeholderAttributes];
+    
+    self.usernameTitle.textColor = self.secondaryTextColor;
+
+    self.usernameField.text = [IKRequest username];
     self.usernameField.textColor = self.primaryTextColor;
+    self.usernameField.attributedPlaceholder = usernameFieldAttributedPlaceholder;
     self.usernameField.backgroundColor = UIColor.clearColor;
     self.usernameField.keyboardAppearance = self.keyboardAppearance;
-    self.usernameTitle.textColor = self.secondaryTextColor;
-    
-	self.passwordField.text = [IKRequest password];
+        
+    self.passwordTitle.textColor = self.secondaryTextColor;
+
+    self.passwordField.text = [IKRequest password];
     self.passwordField.textColor = self.primaryTextColor;
+    self.passwordField.attributedPlaceholder = passwordFieldAttributedPlaceholder;
     self.passwordField.backgroundColor = UIColor.clearColor;
     self.passwordField.keyboardAppearance = self.keyboardAppearance;
-    self.passwordTitle.textColor = self.secondaryTextColor;
 	
     [self.usernameField becomeFirstResponder];
 }
