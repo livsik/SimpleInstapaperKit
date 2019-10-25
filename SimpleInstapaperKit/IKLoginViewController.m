@@ -84,12 +84,22 @@
 	title.text = NSLocalizedString(@"Instapaper", nil);
 	title.font = [UIFont fontWithName:@"Georgia" size:22.0];
 	title.backgroundColor = [UIColor clearColor];
-	title.textColor = [UIColor whiteColor];
-	title.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+	title.textColor = self.primaryTextColor;
 	[title sizeToFit];
 	navigationItem.titleView = title;
 	
 	return navigationItem;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self != nil) {
+        self.title = NSLocalizedString(@"Instapaper", nil);
+        [self setupColors];
+    }
+    
+    return self;
 }
 
 - (id)initWithCompletionHandler:(void(^)(BOOL loggedIn))completion
