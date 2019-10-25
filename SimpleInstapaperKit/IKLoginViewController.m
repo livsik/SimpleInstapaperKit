@@ -129,15 +129,15 @@ const NSInteger kPasswordFieldClearButtonTag = 112;
 }
 
 - (void)setupColors {
-    self.backgroundColor = [UIColor colorWithRed:roundf(243.f / 255.f) green:roundf(245.f / 255.f) blue:roundf(247.f / 255.f) alpha:1.f];
+    self.backgroundColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:1.f];
     
-    self.cellBackgroundColor = [UIColor colorWithRed:roundf(243.f / 255.f) green:roundf(245.f / 255.f) blue:roundf(247.f / 255.f) alpha:1.f];
-    self.cellBackgroundColorSelected = [UIColor colorWithRed:roundf(214.f / 255.f) green:roundf(219.f / 255.f) blue:roundf(223.f / 255.f) alpha:1.f];
+    self.cellBackgroundColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:1.f];
+    self.cellBackgroundColorSelected = [UIColor colorWithRed:242 green:242 blue:247 alpha:1.f];
     
-    self.primaryTextColor = [UIColor colorWithRed:roundf(0.f / 255.f) green:roundf(0.f / 255.f) blue:roundf(0.f / 255.f) alpha:1.f];
-    self.secondaryTextColor = [UIColor colorWithRed:roundf(141.f / 255.f) green:roundf(149.f / 255.f) blue:roundf(158.f / 255.f) alpha:1.f];
-    self.linkTextColor = [UIColor colorWithRed:roundf(0.f / 255.f) green:roundf(122.f / 255.f) blue:roundf(255.f / 255.f) alpha:1.f];
+    self.primaryTextColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.f];
+    self.secondaryTextColor = UIColor.darkGrayColor;
     self.placeholderTextColor = UIColor.lightGrayColor;
+    self.linkTextColor = [UIColor colorWithRed:0 green:122 blue:255 alpha:1.f];
     
     self.clearButtonTintColor = UIColor.lightGrayColor;
 }
