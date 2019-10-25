@@ -42,6 +42,8 @@
 @property (nonatomic, strong) UIColor *placeholderTextColor;
 @property (nonatomic, strong) UIColor *linkTextColor;
 
+@property (nonatomic, strong) UIColor *clearButtonTintColor;
+
 @property (nonatomic, assign) UIKeyboardAppearance keyboardAppearance;
 
 - (id)initWithCompletionHandler:(void(^)(BOOL loggedIn))completion;
