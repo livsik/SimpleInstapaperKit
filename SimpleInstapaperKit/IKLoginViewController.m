@@ -151,6 +151,9 @@ const NSInteger kPasswordFieldClearButtonTag = 112;
     
     self.usernameFieldClearButton.tag = kUsernameFieldClearButtonTag;
     self.passwordFieldClearButton.tag = kPasswordFieldClearButtonTag;
+    
+    [self.usernameField addTarget:self action:@selector(textFieldTextDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.passwordField addTarget:self action:@selector(textFieldTextDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)didReceiveMemoryWarning
@@ -329,20 +332,14 @@ const NSInteger kPasswordFieldClearButtonTag = 112;
 	[self.passwordField becomeFirstResponder];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    BOOL shouldDisplayClearButton = string.length == 0 ? textField.text.length > 1 : YES;
-    
-    if (textField == self.usernameField) {
-        self.usernameFieldClearButton.hidden = !shouldDisplayClearButton;
-    }
-    else if (textField == self.passwordField) {
-        self.passwordFieldClearButton.hidden = !shouldDisplayClearButton;
-    }
-    else {
-        NSCAssert(NO, @"Unknown text field");
-    }
-    
-    return YES;
+#pragma mark - Text Field Delegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self updateClearButtonVisibilityForTextField:textField];
+}
+
+- (void)textFieldTextDidChange:(UITextField *)textField {
+    [self updateClearButtonVisibilityForTextField:textField];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -357,21 +354,34 @@ const NSInteger kPasswordFieldClearButtonTag = 112;
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
+    [self updateClearButtonVisibilityForTextField:textField];
 	[self.loadingField becomeFirstResponder];
 }
+
+#pragma mark -
+
+- (void)updateClearButtonVisibilityForTextField:(UITextField *)textField {
+    BOOL shouldDisplayClearButton = textField.text.length > 0 && textField.isFirstResponder;
+    
+    if (textField == self.usernameField) {
+        self.usernameFieldClearButton.hidden = !shouldDisplayClearButton;
+    }
+    else if (textField == self.passwordField) {
+        self.passwordFieldClearButton.hidden = !shouldDisplayClearButton;
+    }
+    else {
+        NSAssert(NO, @"Failed to update clear button visibility: unknown text field.");
+    }
+}
+
+#pragma mark - IBActions
 
 - (IBAction)clearTextField:(UIButton *)sender {
     if (sender.tag == kUsernameFieldClearButtonTag) {
         self.usernameField.text = @"";
-        [self.usernameField becomeFirstResponder];
     }
     else if (sender.tag == kPasswordFieldClearButtonTag) {
         self.passwordField.text = @"";
-        [self.passwordField becomeFirstResponder];
-    }
-    else {
-        NSCAssert(NO, @"Failed to clear text filed: unknown sender");
-        return;
     }
     
     sender.hidden = YES;
