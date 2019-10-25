@@ -355,7 +355,7 @@ const NSInteger kPasswordFieldClearButtonTag = 112;
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [self updateClearButtonVisibilityForTextField:textField];
-	[self.loadingField becomeFirstResponder];
+    [self.loadingField becomeFirstResponder];
 }
 
 #pragma mark -
