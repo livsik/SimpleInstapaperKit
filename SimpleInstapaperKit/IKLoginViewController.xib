@@ -15,9 +15,11 @@
                 <outlet property="loadingField" destination="81" id="89"/>
                 <outlet property="passwordCell" destination="48" id="59"/>
                 <outlet property="passwordField" destination="50" id="67"/>
+                <outlet property="passwordFieldClearButton" destination="6mm-UM-rKh" id="HGd-g2-uqW"/>
                 <outlet property="passwordTitle" destination="49" id="6bp-Qw-46e"/>
                 <outlet property="usernameCell" destination="8" id="40"/>
                 <outlet property="usernameField" destination="12" id="66"/>
+                <outlet property="usernameFieldClearButton" destination="lYI-Nc-efr" id="X7T-yN-LLb"/>
                 <outlet property="usernameTitle" destination="9" id="YzO-YI-5fE"/>
                 <outlet property="view" destination="4" id="5"/>
             </connections>
@@ -40,25 +42,37 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Username" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9">
+                    <label opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" text="Username" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9">
                         <rect key="frame" x="20" y="14.5" width="61.5" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="47"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" name="linkColor" catalog="System" colorSpace="catalog"/>
-                        <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="200" horizontalCompressionResistancePriority="600" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="or email address" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="12">
+                    <textField opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="200" horizontalCompressionResistancePriority="600" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="or email address" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="12">
                         <rect key="frame" x="89.5" y="0.0" width="210.5" height="44"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                         <connections>
                             <action selector="selectNext:" destination="-1" eventType="editingDidEndOnExit" id="68"/>
                             <outlet property="delegate" destination="-1" id="91"/>
                         </connections>
                     </textField>
+                    <button hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lYI-Nc-efr">
+                        <rect key="frame" x="278" y="11" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="lYI-Nc-efr" secondAttribute="height" multiplier="1:1" id="PAS-2S-nNA"/>
+                            <constraint firstAttribute="width" constant="22" id="ssX-as-0T1"/>
+                        </constraints>
+                        <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" image="ClearButtonLogin.png"/>
+                        <connections>
+                            <action selector="clearTextField:" destination="-1" eventType="touchUpInside" id="0Xm-Gn-1sV"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="9" firstAttribute="leading" secondItem="0rS-EL-Lao" secondAttribute="leading" constant="20" id="10"/>
@@ -68,9 +82,11 @@
                     <constraint firstItem="12" firstAttribute="centerY" secondItem="9" secondAttribute="centerY" id="23"/>
                     <constraint firstAttribute="bottom" secondItem="12" secondAttribute="bottom" id="26"/>
                     <constraint firstItem="12" firstAttribute="leading" secondItem="9" secondAttribute="trailing" constant="8" symbolic="YES" id="35"/>
+                    <constraint firstItem="lYI-Nc-efr" firstAttribute="centerY" secondItem="12" secondAttribute="centerY" id="rIk-1L-hPD"/>
+                    <constraint firstItem="lYI-Nc-efr" firstAttribute="trailing" secondItem="12" secondAttribute="trailing" id="rob-2S-w7r"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="0.0" y="17"/>
+            <point key="canvasLocation" x="0.0" y="16.741071428571427"/>
         </tableViewCell>
         <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="48">
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -79,25 +95,37 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49">
+                    <label opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" text="Password" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="49">
                         <rect key="frame" x="20" y="14.5" width="58.5" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="58"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                         <color key="textColor" name="linkColor" catalog="System" colorSpace="catalog"/>
-                        <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="200" horizontalCompressionResistancePriority="600" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="if you have one" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="50">
+                    <textField opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" tag="1" contentMode="scaleToFill" horizontalHuggingPriority="200" horizontalCompressionResistancePriority="600" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="if you have one" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="50">
                         <rect key="frame" x="86.5" y="0.0" width="213.5" height="44"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                         <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="go" secureTextEntry="YES"/>
                         <connections>
                             <action selector="login:" destination="-1" eventType="editingDidEndOnExit" id="69"/>
                             <outlet property="delegate" destination="-1" id="70"/>
                         </connections>
                     </textField>
+                    <button hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6mm-UM-rKh">
+                        <rect key="frame" x="278" y="11" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="ZlB-Lg-VDK"/>
+                            <constraint firstAttribute="width" secondItem="6mm-UM-rKh" secondAttribute="height" multiplier="1:1" id="bWs-gW-sXx"/>
+                        </constraints>
+                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <state key="normal" image="ClearButtonLogin.png"/>
+                        <connections>
+                            <action selector="clearTextField:" destination="-1" eventType="touchUpInside" id="8kJ-k1-Adt"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="49" firstAttribute="leading" secondItem="d9J-7f-jiq" secondAttribute="leading" constant="20" id="51"/>
@@ -107,6 +135,8 @@
                     <constraint firstItem="50" firstAttribute="centerY" secondItem="49" secondAttribute="centerY" id="55"/>
                     <constraint firstAttribute="bottom" secondItem="50" secondAttribute="bottom" id="56"/>
                     <constraint firstItem="50" firstAttribute="leading" secondItem="49" secondAttribute="trailing" constant="8" symbolic="YES" id="57"/>
+                    <constraint firstItem="6mm-UM-rKh" firstAttribute="trailing" secondItem="50" secondAttribute="trailing" id="hHC-6U-iCj"/>
+                    <constraint firstItem="6mm-UM-rKh" firstAttribute="centerY" secondItem="50" secondAttribute="centerY" id="tgs-iP-eXK"/>
                 </constraints>
             </tableViewCellContentView>
             <point key="canvasLocation" x="126" y="92"/>
@@ -151,6 +181,7 @@
         </textField>
     </objects>
     <resources>
+        <image name="ClearButtonLogin.png" width="32" height="32"/>
         <image name="InstapaperLogin.png" width="66" height="66"/>
     </resources>
 </document>

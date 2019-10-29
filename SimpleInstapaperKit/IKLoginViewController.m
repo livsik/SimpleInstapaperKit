@@ -33,15 +33,19 @@
 #import <QuartzCore/QuartzCore.h>
 #import "IKRequest.h"
 
+const NSInteger kUsernameFieldClearButtonTag = 111;
+const NSInteger kPasswordFieldClearButtonTag = 112;
 
 @interface IKLoginViewController ()
 
 @property (strong, nonatomic) IBOutlet UITableViewCell *usernameCell;
 @property (strong, nonatomic) IBOutlet UILabel *usernameTitle;
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
+@property (strong, nonatomic) IBOutlet UIButton *usernameFieldClearButton;
 @property (strong, nonatomic) IBOutlet UITableViewCell *passwordCell;
 @property (strong, nonatomic) IBOutlet UILabel *passwordTitle;
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
+@property (strong, nonatomic) IBOutlet UIButton *passwordFieldClearButton;
 @property (strong, nonatomic) IBOutlet UITableViewCell *loadingCell;
 @property (strong, nonatomic) IBOutlet UITextField *loadingField;
 @property (strong, nonatomic) IBOutlet UIView *footerView;
@@ -84,12 +88,22 @@
 	title.text = NSLocalizedString(@"Instapaper", nil);
 	title.font = [UIFont fontWithName:@"Georgia" size:22.0];
 	title.backgroundColor = [UIColor clearColor];
-	title.textColor = [UIColor whiteColor];
-	title.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+	title.textColor = self.primaryTextColor;
 	[title sizeToFit];
 	navigationItem.titleView = title;
 	
 	return navigationItem;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self != nil) {
+        self.title = NSLocalizedString(@"Instapaper", nil);
+        [self setupColors];
+    }
+    
+    return self;
 }
 
 - (id)initWithCompletionHandler:(void(^)(BOOL loggedIn))completion
@@ -115,23 +129,31 @@
 }
 
 - (void)setupColors {
-    self.backgroundColor = [UIColor colorWithRed:roundf(243.f / 255.f) green:roundf(245.f / 255.f) blue:roundf(247.f / 255.f) alpha:1.f];
+    self.backgroundColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:1.f];
     
-    self.cellBackgroundColor = [UIColor colorWithRed:roundf(243.f / 255.f) green:roundf(245.f / 255.f) blue:roundf(247.f / 255.f) alpha:1.f];
-    self.cellBackgroundColorSelected = [UIColor colorWithRed:roundf(214.f / 255.f) green:roundf(219.f / 255.f) blue:roundf(223.f / 255.f) alpha:1.f];
+    self.cellBackgroundColor = [UIColor colorWithRed:255 green:255 blue:255 alpha:1.f];
+    self.cellBackgroundColorSelected = [UIColor colorWithRed:242 green:242 blue:247 alpha:1.f];
     
-    self.primaryTextColor = [UIColor colorWithRed:roundf(0.f / 255.f) green:roundf(0.f / 255.f) blue:roundf(0.f / 255.f) alpha:1.f];
-    self.secondaryTextColor = [UIColor colorWithRed:roundf(141.f / 255.f) green:roundf(149.f / 255.f) blue:roundf(158.f / 255.f) alpha:1.f];
-    self.linkTextColor = [UIColor colorWithRed:roundf(0.f / 255.f) green:roundf(122.f / 255.f) blue:roundf(255.f / 255.f) alpha:1.f];
+    self.primaryTextColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:1.f];
+    self.secondaryTextColor = UIColor.darkGrayColor;
+    self.placeholderTextColor = UIColor.lightGrayColor;
+    self.linkTextColor = [UIColor colorWithRed:0 green:122 blue:255 alpha:1.f];
+    
+    self.clearButtonTintColor = UIColor.lightGrayColor;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     [self.view addSubview:self.loadingField];
     
     self.tableView.backgroundColor = self.backgroundColor;
+    
+    self.usernameFieldClearButton.tag = kUsernameFieldClearButtonTag;
+    self.passwordFieldClearButton.tag = kPasswordFieldClearButtonTag;
+    
+    [self.usernameField addTarget:self action:@selector(textFieldTextDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.passwordField addTarget:self action:@selector(textFieldTextDidChange:) forControlEvents:UIControlEventEditingChanged];
 }
 
 - (void)didReceiveMemoryWarning
@@ -148,17 +170,32 @@
     
     self.tableView.backgroundColor = self.backgroundColor;
 	
-	self.usernameField.text = [IKRequest username];
+    NSDictionary *placeholderAttributes = @{ NSForegroundColorAttributeName: self.placeholderTextColor };
+    
+    NSString *usernameFieldPlaceholder = self.usernameField.placeholder ?: @"or email address";
+    NSAttributedString *usernameFieldAttributedPlaceholder = [[NSAttributedString alloc] initWithString:usernameFieldPlaceholder attributes:placeholderAttributes];
+    
+    NSString *passwordFieldPlaceholder = self.passwordField.placeholder ?: @"if you have any";
+    NSAttributedString *passwordFieldAttributedPlaceholder = [[NSAttributedString alloc] initWithString:passwordFieldPlaceholder attributes:placeholderAttributes];
+    
+    self.usernameTitle.textColor = self.secondaryTextColor;
+
+    self.usernameField.text = [IKRequest username];
     self.usernameField.textColor = self.primaryTextColor;
+    self.usernameField.attributedPlaceholder = usernameFieldAttributedPlaceholder;
     self.usernameField.backgroundColor = UIColor.clearColor;
     self.usernameField.keyboardAppearance = self.keyboardAppearance;
-    self.usernameTitle.textColor = self.secondaryTextColor;
-    
-	self.passwordField.text = [IKRequest password];
+        
+    self.passwordTitle.textColor = self.secondaryTextColor;
+
+    self.passwordField.text = [IKRequest password];
     self.passwordField.textColor = self.primaryTextColor;
+    self.passwordField.attributedPlaceholder = passwordFieldAttributedPlaceholder;
     self.passwordField.backgroundColor = UIColor.clearColor;
     self.passwordField.keyboardAppearance = self.keyboardAppearance;
-    self.passwordTitle.textColor = self.secondaryTextColor;
+    
+    self.usernameFieldClearButton.tintColor = self.clearButtonTintColor;
+    self.passwordFieldClearButton.tintColor = self.clearButtonTintColor;
 	
     [self.usernameField becomeFirstResponder];
 }
@@ -295,6 +332,16 @@
 	[self.passwordField becomeFirstResponder];
 }
 
+#pragma mark - Text Field Delegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self updateClearButtonVisibilityForTextField:textField];
+}
+
+- (void)textFieldTextDidChange:(UITextField *)textField {
+    [self updateClearButtonVisibilityForTextField:textField];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
 	if (textField == self.passwordField) {
@@ -307,7 +354,37 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-	[self.loadingField becomeFirstResponder];
+    [self updateClearButtonVisibilityForTextField:textField];
+    [self.loadingField becomeFirstResponder];
+}
+
+#pragma mark -
+
+- (void)updateClearButtonVisibilityForTextField:(UITextField *)textField {
+    BOOL shouldDisplayClearButton = textField.text.length > 0 && textField.isFirstResponder;
+    
+    if (textField == self.usernameField) {
+        self.usernameFieldClearButton.hidden = !shouldDisplayClearButton;
+    }
+    else if (textField == self.passwordField) {
+        self.passwordFieldClearButton.hidden = !shouldDisplayClearButton;
+    }
+    else {
+        NSAssert(NO, @"Failed to update clear button visibility: unknown text field.");
+    }
+}
+
+#pragma mark - IBActions
+
+- (IBAction)clearTextField:(UIButton *)sender {
+    if (sender.tag == kUsernameFieldClearButtonTag) {
+        self.usernameField.text = @"";
+    }
+    else if (sender.tag == kPasswordFieldClearButtonTag) {
+        self.passwordField.text = @"";
+    }
+    
+    sender.hidden = YES;
 }
 
 @end
